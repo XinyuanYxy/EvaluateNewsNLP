@@ -5,6 +5,9 @@ const dotenv = require('dotenv');
 const app = express();
 const cors = require('cors');
 const axios = require('axios');
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('dist'));
 
@@ -28,20 +31,21 @@ app.get('/sentimentAnalysis/:content', async (req, res) => {
 	try {
 		const text = req.params.content;
 
-		const param = {
-			txt: text,
-			key: process.env.API_KEY,
-			lang: 'en',
-		};
-		await axios({
-			method: 'post',
-			url: `https://api.meaningcloud.com/sentiment-2.1`,
-			body: param,
-			redirect: 'follow',
-		}).then((result) => {
-			console.log(result);
-			res.send(result);
-		});
+		await axios
+			.post(
+				'https://api.meaningcloud.com/sentiment-2.1',
+				{},
+				{
+					params: {
+						txt: text,
+						key: process.env.API_KEY,
+						lang: 'en',
+					},
+				}
+			)
+			.then((result) => {
+				res.send(result.data);
+			});
 	} catch (err) {
 		console.log(err);
 	}
