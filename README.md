@@ -40,3 +40,4 @@ It used node.js and express.js to mock a local server to get data from external 
 ## References
 
 - [Sentiment Analysis](https://learn.meaningcloud.com/developer/sentiment-analysis/2.1/doc)
+- [Regular Expression for url validation](https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-9.php)
